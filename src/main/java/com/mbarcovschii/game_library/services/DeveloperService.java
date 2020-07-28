@@ -1,8 +1,8 @@
 package com.mbarcovschii.game_library.services;
 
-import com.mbarcovschii.game_library.entities.Developer;
-import com.mbarcovschii.game_library.entities.Game;
-import com.mbarcovschii.game_library.exceptions.DeveloperNotFoundException;
+import com.mbarcovschii.game_library.exceptions.developer.DeveloperNotFoundException;
+import com.mbarcovschii.game_library.model.Developer;
+import com.mbarcovschii.game_library.model.Game;
 import com.mbarcovschii.game_library.repositories.DeveloperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,37 +35,75 @@ public class DeveloperService {
                 orElseThrow(() -> new DeveloperNotFoundException(developerId));
     }
 
-    public Developer createDeveloper(Developer newDeveloper) {
-        return developerRepository.save(newDeveloper);
-    }
+    public Developer createDeveloper(Developer developer) {
 
-    public Developer createDeveloper(Developer newDeveloper, List<Integer> developedGamesIds) {
-
-        newDeveloper.setDevelopedGames(new ArrayList<>());
-
-        if (developedGamesIds != null) {
-            List<Game> developedGames = new ArrayList<>();
-            for (long gameId : developedGamesIds) {
-                Game gameToAdd = gameService.getGameById(gameId);
-                gameToAdd.setGameDeveloper(newDeveloper);
-                developedGames.add(gameToAdd);
-            }
-            newDeveloper.setDevelopedGames(developedGames);
+        if (developer.getDeveloperGames() == null) {
+            developer.setDeveloperGames(new ArrayList<>());
         }
 
-        return createDeveloper(newDeveloper);
+        return developerRepository.save(developer);
+    }
+
+    public Developer createDeveloper(Developer developer, List<Long> developerGameIds) {
+
+        developer.setDeveloperGames(new ArrayList<>());
+
+        if (developerGameIds != null) {
+            List<Game> developerGames = new ArrayList<>();
+            for (Long gameId : developerGameIds) {
+                Game gameToAdd = gameService.getGameById(gameId);
+                gameToAdd.setGameDeveloper(developer);
+                developerGames.add(gameToAdd);
+            }
+            developer.setDeveloperGames(developerGames);
+        }
+
+        return createDeveloper(developer);
+    }
+
+    public Developer updateDeveloper(Long developerId, String developerName) {
+
+        Developer developer = getDeveloperById(developerId);
+        developer.setDeveloperName(developerName);
+
+        return developerRepository.save(developer);
+    }
+
+    public Developer addNewDeveloperGames(Long developerId, List<Long> gameIds) {
+
+        Developer developer = getDeveloperById(developerId);
+        for (Long gameId : gameIds) {
+            Game game = gameService.getGameById(gameId);
+            game.setGameDeveloper(developer);
+            developer.getDeveloperGames().add(game);
+        }
+
+        return developerRepository.save(developer);
     }
 
     public void deleteDeveloperById(Long developerId) {
 
         Developer developerToDelete = getDeveloperById(developerId);
 
-        if (developerToDelete.getDevelopedGames() != null) {
-            for (Game game : developerToDelete.getDevelopedGames()) {
+        if (developerToDelete.getDeveloperGames() != null) {
+            for (Game game : developerToDelete.getDeveloperGames()) {
                 game.setGameDeveloper(null);
             }
         }
 
         developerRepository.deleteById(developerId);
+    }
+
+    public void deleteDeveloperGames(Long developerId, List<Long> gameIds) {
+
+        Developer developerToUpdate = getDeveloperById(developerId);
+
+        for (Long gameId : gameIds) {
+            Game gameToRemoveFromList = gameService.getGameById(gameId);
+            developerToUpdate.getDeveloperGames().remove(gameToRemoveFromList);
+            gameToRemoveFromList.setGameDeveloper(null);
+        }
+
+        developerRepository.save(developerToUpdate);
     }
 }

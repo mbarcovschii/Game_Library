@@ -1,9 +1,9 @@
 package com.mbarcovschii.game_library.unit_tests.service_layer;
 
-import com.mbarcovschii.game_library.entities.Game;
-import com.mbarcovschii.game_library.entities.Genre;
-import com.mbarcovschii.game_library.exceptions.ExistingGenreException;
-import com.mbarcovschii.game_library.exceptions.GenreNotFoundException;
+import com.mbarcovschii.game_library.exceptions.genre.ExistingGenreException;
+import com.mbarcovschii.game_library.exceptions.genre.GenreNotFoundException;
+import com.mbarcovschii.game_library.model.Game;
+import com.mbarcovschii.game_library.model.Genre;
 import com.mbarcovschii.game_library.repositories.GenreRepository;
 import com.mbarcovschii.game_library.services.GameService;
 import com.mbarcovschii.game_library.services.GenreService;

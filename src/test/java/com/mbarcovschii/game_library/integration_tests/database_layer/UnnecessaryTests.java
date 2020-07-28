@@ -1,8 +1,8 @@
-package com.mbarcovschii.game_library.unit_tests.database_layer;
+package com.mbarcovschii.game_library.integration_tests.database_layer;
 
-import com.mbarcovschii.game_library.entities.Developer;
-import com.mbarcovschii.game_library.entities.Game;
-import com.mbarcovschii.game_library.entities.Genre;
+import com.mbarcovschii.game_library.model.Developer;
+import com.mbarcovschii.game_library.model.Game;
+import com.mbarcovschii.game_library.model.Genre;
 import com.mbarcovschii.game_library.repositories.DeveloperRepository;
 import com.mbarcovschii.game_library.repositories.GameRepository;
 import com.mbarcovschii.game_library.repositories.GenreRepository;

@@ -1,8 +1,8 @@
 package com.mbarcovschii.game_library.services;
 
-import com.mbarcovschii.game_library.entities.Game;
-import com.mbarcovschii.game_library.entities.Genre;
-import com.mbarcovschii.game_library.exceptions.GameNotFoundException;
+import com.mbarcovschii.game_library.exceptions.game.GameNotFoundException;
+import com.mbarcovschii.game_library.model.Game;
+import com.mbarcovschii.game_library.model.Genre;
 import com.mbarcovschii.game_library.repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,30 +41,70 @@ public class GameService {
                 orElseThrow(() -> new GameNotFoundException(gameId));
     }
 
-    public Game createGame(Game newGame) {
-        return gameRepository.save(newGame);
+    public Game createGame(Game game) {
+
+        if (game.getGameGenres() == null) {
+            game.setGameGenres(new ArrayList<>());
+        }
+
+        return gameRepository.save(game);
     }
 
-    public Game createGame(Game newGame, Integer gameDeveloperId, List<Integer> gameGenresIds) {
+    public Game createGame(Game game, Long gameDeveloperId, List<Long> gameGenreIds) {
 
-        newGame.setGameDeveloper(null);
-        newGame.setGameGenres(new ArrayList<>());
+        game.setGameDeveloper(null);
+        game.setGameGenres(new ArrayList<>());
 
         if (gameDeveloperId != null) {
-            newGame.setGameDeveloper(developerService.getDeveloperById(Long.valueOf(gameDeveloperId)));
+            game.setGameDeveloper(developerService.getDeveloperById(gameDeveloperId));
         }
 
-        if (gameGenresIds != null) {
+        if (gameGenreIds != null) {
             List<Genre> gameGenres = new ArrayList<>();
-            for (long genreId : gameGenresIds) {
+            for (Long genreId : gameGenreIds) {
                 Genre genreToAdd = genreService.getGenreById(genreId);
-                genreToAdd.getGenreGames().add(newGame);
+                genreToAdd.getGenreGames().add(game);
                 gameGenres.add(genreToAdd);
             }
-            newGame.setGameGenres(gameGenres);
+            game.setGameGenres(gameGenres);
         }
 
-        return createGame(newGame);
+        return createGame(game);
+    }
+
+    public Game updateGameName(Long gameId, String gameName) {
+
+        Game game = getGameById(gameId);
+        game.setGameName(gameName);
+
+        return gameRepository.save(game);
+    }
+
+    public Game updateGameDeveloper(Long gameId, Long developerId) {
+
+        Game game = getGameById(gameId);
+        game.setGameDeveloper(developerService.getDeveloperById(developerId));
+
+        return gameRepository.save(game);
+    }
+
+    public Game addNewGameGenres(Long gameId, List<Long> genreIds) {
+
+        Game game = getGameById(gameId);
+        List<Genre> gameGenres = game.getGameGenres();
+        for (long genreId : genreIds) {
+            Genre genre = genreService.getGenreById(genreId);
+            List<Game> genreGames = genre.getGenreGames();
+
+            if (!gameGenres.contains(genre)) {
+                gameGenres.add(genre);
+            }
+            if (!genreGames.contains(game)) {
+                genreGames.add(game);
+            }
+        }
+
+        return gameRepository.save(game);
     }
 
     public void deleteGameById(Long gameId) {
@@ -72,7 +112,7 @@ public class GameService {
         Game gameToDelete = getGameById(gameId);
 
         if (gameToDelete.getGameDeveloper() != null) {
-            gameToDelete.getGameDeveloper().getDevelopedGames().remove(gameToDelete);
+            gameToDelete.getGameDeveloper().getDeveloperGames().remove(gameToDelete);
         }
 
         if (gameToDelete.getGameGenres() != null) {
@@ -82,5 +122,18 @@ public class GameService {
         }
 
         gameRepository.deleteById(gameId);
+    }
+
+    public void deleteGameGenres(Long gameId, List<Long> genreIds) {
+
+        Game gameToUpdate = getGameById(gameId);
+
+        for (long genreId : genreIds) {
+            Genre genreToRemoveFromList = genreService.getGenreById(genreId);
+            genreToRemoveFromList.getGenreGames().remove(gameToUpdate);
+            gameToUpdate.getGameGenres().remove(genreToRemoveFromList);
+        }
+
+        gameRepository.save(gameToUpdate);
     }
 }

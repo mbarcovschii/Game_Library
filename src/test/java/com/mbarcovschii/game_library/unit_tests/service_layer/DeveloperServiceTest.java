@@ -1,8 +1,8 @@
 package com.mbarcovschii.game_library.unit_tests.service_layer;
 
-import com.mbarcovschii.game_library.entities.Developer;
-import com.mbarcovschii.game_library.entities.Game;
-import com.mbarcovschii.game_library.exceptions.DeveloperNotFoundException;
+import com.mbarcovschii.game_library.exceptions.developer.DeveloperNotFoundException;
+import com.mbarcovschii.game_library.model.Developer;
+import com.mbarcovschii.game_library.model.Game;
 import com.mbarcovschii.game_library.repositories.DeveloperRepository;
 import com.mbarcovschii.game_library.services.DeveloperService;
 import com.mbarcovschii.game_library.services.GameService;
@@ -44,7 +44,7 @@ public class DeveloperServiceTest {
         ArrayList<Game> developedGames = new ArrayList<>();
         developedGames.add(new Game(42L, "Starcraft II", developer, null));
         developedGames.add(new Game(42L, "Warcraft III", developer, null));
-        developer.setDevelopedGames(developedGames);
+        developer.setDeveloperGames(developedGames);
     }
 
     @Test
@@ -88,9 +88,9 @@ public class DeveloperServiceTest {
     void shouldRemoveDeveloperFromListBeforeDeleting() {
 
         Long developerId = developer.getDeveloperId();
-        List<Game> gameList = developer.getDevelopedGames();
+        List<Game> gameList = developer.getDeveloperGames();
 
-        assertThat(developer.getDevelopedGames().size()).isEqualTo(2);
+        assertThat(developer.getDeveloperGames().size()).isEqualTo(2);
         assertThat(gameList.get(0).getGameDeveloper()).isNotNull();
         assertThat(gameList.get(1).getGameDeveloper()).isNotNull();
 

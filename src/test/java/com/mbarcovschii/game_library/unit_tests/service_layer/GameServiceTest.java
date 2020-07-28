@@ -1,9 +1,9 @@
 package com.mbarcovschii.game_library.unit_tests.service_layer;
 
-import com.mbarcovschii.game_library.entities.Developer;
-import com.mbarcovschii.game_library.entities.Game;
-import com.mbarcovschii.game_library.entities.Genre;
-import com.mbarcovschii.game_library.exceptions.GameNotFoundException;
+import com.mbarcovschii.game_library.exceptions.game.GameNotFoundException;
+import com.mbarcovschii.game_library.model.Developer;
+import com.mbarcovschii.game_library.model.Game;
+import com.mbarcovschii.game_library.model.Genre;
 import com.mbarcovschii.game_library.repositories.GameRepository;
 import com.mbarcovschii.game_library.services.DeveloperService;
 import com.mbarcovschii.game_library.services.GameService;
@@ -49,7 +49,7 @@ public class GameServiceTest {
 
         ArrayList<Game> developedGames = new ArrayList<>();
         developedGames.add(game);
-        developer.setDevelopedGames(developedGames);
+        developer.setDeveloperGames(developedGames);
 
         ArrayList<Genre> gameGenres = new ArrayList<>();
         gameGenres.add(genre);
@@ -104,13 +104,13 @@ public class GameServiceTest {
         Developer developer = game.getGameDeveloper();
         Genre genre = game.getGameGenres().get(0);
 
-        assertThat(developer.getDevelopedGames().size()).isEqualTo(1);
+        assertThat(developer.getDeveloperGames().size()).isEqualTo(1);
         assertThat(genre.getGenreGames().size()).isEqualTo(1);
 
         given(gameRepository.findById(gameId)).willReturn(Optional.of(game));
 
         gameService.deleteGameById(gameId);
-        assertThat(developer.getDevelopedGames().size()).isEqualTo(0);
+        assertThat(developer.getDeveloperGames().size()).isEqualTo(0);
         assertThat(genre.getGenreGames().size()).isEqualTo(0);
 
         verify(gameRepository).findById(gameId);
