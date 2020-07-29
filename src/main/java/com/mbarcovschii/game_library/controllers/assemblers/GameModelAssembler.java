@@ -1,5 +1,6 @@
 package com.mbarcovschii.game_library.controllers.assemblers;
 
+import com.mbarcovschii.game_library.controllers.DeveloperController;
 import com.mbarcovschii.game_library.controllers.GameController;
 import com.mbarcovschii.game_library.model.Game;
 import org.springframework.hateoas.EntityModel;
@@ -20,7 +21,8 @@ public class GameModelAssembler implements RepresentationModelAssembler<Game, En
                         withSelfRel(),
                 linkTo(methodOn(GameController.class).getAllGames()).
                         withRel("games"),
-                linkTo(methodOn(GameController.class).deleteOneGameById(game.getGameId(), null)).
-                        withRel("delete").expand());
+                linkTo(methodOn(DeveloperController.class).getOneDeveloperById(
+                        game.getGameDeveloper().getDeveloperId())).
+                        withRel("developer"));
     }
 }

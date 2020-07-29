@@ -19,9 +19,6 @@ public class DeveloperModelAssembler implements RepresentationModelAssembler<Dev
                 linkTo(methodOn(DeveloperController.class).getOneDeveloperById(developer.getDeveloperId())).
                         withSelfRel(),
                 linkTo(methodOn(DeveloperController.class).getAllDevelopers()).
-                        withRel("developers"),
-                linkTo(methodOn(DeveloperController.class).
-                        deleteOneDeveloperById(developer.getDeveloperId(), null)).
-                        withRel("delete").expand());
+                        withRel("developers"));
     }
 }
