@@ -16,7 +16,11 @@ public class GenreModelAssembler implements RepresentationModelAssembler<Genre, 
     public EntityModel<Genre> toModel(Genre genre) {
 
         return EntityModel.of(genre,
-                linkTo(methodOn(GenreController.class).getOneGenreById(genre.getGenreId())).withSelfRel(),
-                linkTo(methodOn(GenreController.class).getAllGenres()).withRel("genres"));
+                linkTo(methodOn(GenreController.class).getOneGenreById(genre.getGenreId())).
+                        withSelfRel(),
+                linkTo(methodOn(GenreController.class).getAllGenres()).
+                        withRel("genres"),
+                linkTo(methodOn(GenreController.class).deleteOneGenreById(genre.getGenreId(), null)).
+                        withRel("delete").expand());
     }
 }
