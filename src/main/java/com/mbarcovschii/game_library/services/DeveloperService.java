@@ -1,5 +1,6 @@
 package com.mbarcovschii.game_library.services;
 
+import com.mbarcovschii.game_library.exceptions.developer.DeveloperGameListShouldBeEmptyException;
 import com.mbarcovschii.game_library.exceptions.developer.DeveloperNotFoundException;
 import com.mbarcovschii.game_library.model.Developer;
 import com.mbarcovschii.game_library.model.Game;
@@ -84,6 +85,10 @@ public class DeveloperService {
     public void deleteDeveloperById(Long developerId) {
 
         Developer developerToDelete = getDeveloperById(developerId);
+
+        if (developerToDelete.getDeveloperGames().size() != 0) {
+            throw new DeveloperGameListShouldBeEmptyException(developerToDelete.getDeveloperId());
+        }
 
         if (developerToDelete.getDeveloperGames() != null) {
             for (Game game : developerToDelete.getDeveloperGames()) {

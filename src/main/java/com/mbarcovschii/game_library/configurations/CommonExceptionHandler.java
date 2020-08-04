@@ -23,6 +23,7 @@ public class CommonExceptionHandler {
             PartialUpdateIsEmptyException ex) {
 
         Map<String, Object> body = new LinkedHashMap<>();
+        body.put("fieldName", null);
         body.put("message", ex.getMessage());
         body.put("timestamp", LocalDateTime.now());
 
@@ -52,7 +53,7 @@ public class CommonExceptionHandler {
 
         if (matcher.find()) {
             String field = exMessage.substring(matcher.start(), matcher.end());
-            body.put("field", field.substring(2, field.length() - 2));
+            body.put("fieldName", field.substring(2, field.length() - 2));
         }
 
         pattern = Pattern.compile("\"\\w+\"");
@@ -60,8 +61,11 @@ public class CommonExceptionHandler {
 
         if (matcher.find()) {
             String incorrectValue = exMessage.substring(matcher.start(), matcher.end());
-            body.put("incorrectValue", incorrectValue.substring(1, incorrectValue.length() - 1));
+            body.put("message", "wrong value [" +
+                    incorrectValue.substring(1, incorrectValue.length() - 1) + "]");
         }
+
+        body.put("timestamp", LocalDateTime.now());
 
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }

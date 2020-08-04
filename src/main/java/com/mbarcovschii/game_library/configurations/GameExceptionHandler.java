@@ -27,7 +27,7 @@ public class GameExceptionHandler extends ResponseEntityExceptionHandler {
             GameNotFoundException ex) {
 
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("gameId", ex.getGameId());
+        body.put("id", ex.getGameId());
         body.put("message", ex.getMessage());
         body.put("timestamp", LocalDateTime.now());
 

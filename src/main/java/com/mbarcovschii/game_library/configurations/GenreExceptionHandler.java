@@ -19,7 +19,7 @@ public class GenreExceptionHandler {
             GenreNotFoundException ex) {
 
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("genreId", ex.getGenreId());
+        body.put("id", ex.getGenreId());
         body.put("message", ex.getMessage());
         body.put("timestamp", LocalDateTime.now());
 
@@ -31,7 +31,7 @@ public class GenreExceptionHandler {
             ExistingGenreException ex) {
 
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("genreName", ex.getGenreName());
+        body.put("fieldName", "genreName");
         body.put("message", ex.getMessage());
         body.put("timestamp", LocalDateTime.now());
 

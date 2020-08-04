@@ -83,24 +83,4 @@ public class DeveloperServiceTest {
 
         verify(developerRepository).findById(wrongDeveloperId);
     }
-
-    @Test
-    void shouldRemoveDeveloperFromListBeforeDeleting() {
-
-        Long developerId = developer.getDeveloperId();
-        List<Game> gameList = developer.getDeveloperGames();
-
-        assertThat(developer.getDeveloperGames().size()).isEqualTo(2);
-        assertThat(gameList.get(0).getGameDeveloper()).isNotNull();
-        assertThat(gameList.get(1).getGameDeveloper()).isNotNull();
-
-        given(developerRepository.findById(developerId)).willReturn(Optional.of(developer));
-
-        developerService.deleteDeveloperById(developerId);
-        assertThat(gameList.get(0).getGameDeveloper()).isNull();
-        assertThat(gameList.get(1).getGameDeveloper()).isNull();
-
-        verify(developerRepository).findById(developerId);
-        verify(developerRepository).deleteById(developerId);
-    }
 }
