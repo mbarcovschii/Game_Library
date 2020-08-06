@@ -17,7 +17,7 @@ pipeline {
             steps {
                 echo "Start deploy"
                 bat "docker build -t game-library-api:latest ./docker/backend"
-                bat "docker-compose up --detach --file ./docker/docker-compose.yml"
+                bat "docker-compose --file ./docker/docker-compose.yml up --detach"
             }
         }
     }
