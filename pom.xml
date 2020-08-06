@@ -90,7 +90,7 @@
                         </goals>
                         <configuration>
                             <mainClass>com.mbarcovschii.game_library.GameLibraryApplication</mainClass>
-                            <outputDirectory>${project.basedir}/docker</outputDirectory>
+                            <outputDirectory>${project.basedir}/docker/backend</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>

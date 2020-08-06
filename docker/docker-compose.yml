@@ -1,0 +1,29 @@
+version: '3'
+
+networks:
+  default:
+    external:
+      name: my-network
+
+services:
+    backend:
+        build: ./backend
+        depends_on:
+          - database
+        container_name: game-library-api
+        ports:
+          - "8000:8080"
+        networks:
+          - default
+    database:
+        image: mysql:latest
+        container_name: mysql-database
+        environment:
+          MYSQL_ROOT_PASSWORD: root123
+          MYSQL_DATABASE: game_library
+          MYSQL_USER: rootUser
+          MYSQL_PASSWORD: root
+        ports:
+          - "2012:3306"
+        networks:
+          - default
