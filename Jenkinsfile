@@ -23,7 +23,7 @@ pipeline {
         stage("Newman tests") {
             steps {
                 echo "Start newman tests"
-                bat "newman run ./newman/tests.json -e ./newman/environment.json --disable-unicode"
+                bat "C:\\Users\\Гыук\\AppData\\Roaming\\npm\\newman.cmd run ./newman/tests.json -e ./newman/environment.json --disable-unicode"
             }
         }
     }
