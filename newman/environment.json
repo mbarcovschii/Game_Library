@@ -1,0 +1,34 @@
+{
+	"id": "fe5d0b25-42d7-4eab-8b38-417772a1f04d",
+	"name": "GameLibrary Test Environment",
+	"values": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8000",
+			"enabled": true
+		},
+		{
+			"key": "developerId",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "genreId",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "gameId",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "queryParams",
+			"value": "",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2020-08-07T07:06:13.499Z",
+	"_postman_exported_using": "Postman/7.29.1"
+}

@@ -20,5 +20,12 @@ pipeline {
                 bat "docker-compose --file ./docker/docker-compose.yml up --detach"
             }
         }
+        stage("Newman tests") {
+            timeout(time: 20, unit: "Seconds") {
+                steps {
+                    bat "newman run ./newman/tests.json -e ./newman/environment.json"
+                }
+            }
+        }
     }
 }
