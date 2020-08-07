@@ -21,10 +21,9 @@ pipeline {
             }
         }
         stage("Newman tests") {
-            timeout(time: 20, unit: "Seconds") {
-                steps {
-                    bat "newman run ./newman/tests.json -e ./newman/environment.json"
-                }
+            steps {
+                echo "Start newman tests"
+                bat "newman run ./newman/tests.json -e ./newman/environment.json --disable-unicode"
             }
         }
     }
