@@ -23,10 +23,25 @@ pipeline {
         }
         stage("Newman tests") {
             steps {
+                echo "Start newman tests"
                 script {
-                    def responseCode = sh returnStdout: true,
-                    script: "curl --write-out '%{http_code}' --silent --output /dev/null http://localhost:8000/games"
-                    echo responseCode;
+                    for (int i = 0; i < 5; i++) {
+                        if (i == 5) {
+                            sh "exit 1"
+                        } else {
+                            def responseCode = sh returnStdout: true,
+                            script: "curl --write-out '%{http_code}' --silent --output /dev/null http://localhost:8000/games"
+
+                            if (responseCode == 200) {
+                                newman run ./newman/tests.json -e ./newman/environment.json --disable-unicode
+                                sh "exit 0"
+                            } else {
+                                echo "Retry to send request after 5 seconds"
+                                sleep(5000)
+                            }
+                        }
+                    }
+
                 }
             }
         }
