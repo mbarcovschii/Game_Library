@@ -41,9 +41,9 @@ pipeline {
                     waitUntil(initialRecurrencePeriod: 5000) {
                         script {
                             def result =
-                                sh script: "curl --write-out '%{http_code}' --silent --output /dev/null http://localhost:8000/games",
-                                returnStdout: true
-                            return (result == "200")
+                                sh script: "curl --silent --output /dev/null http://localhost:8000/games",
+                                returnStatus: true
+                            return (result == "0")
                         }
                     }
                 }
