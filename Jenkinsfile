@@ -26,8 +26,7 @@ pipeline {
         stage("Build docker images") {
             steps {
                 echo "Build docker image and pushing it on DockerHub"
-                 withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: "DOCKER_LOGIN",
-                    passwordVariable: "DOCKER_PASSWORD")]) {
+                 withCredentials([usernamePassword(usernameVariable: "DOCKER_LOGIN", passwordVariable: "DOCKER_PASSWORD")]) {
                         sh """
                             docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
                             docker build \
