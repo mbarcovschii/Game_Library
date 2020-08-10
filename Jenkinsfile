@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     env.appName = readMavenPom().getArtifactId()
-                    env.appVersion = readMavenPom().getVersionId()
+                    env.appVersion = readMavenPom().getVersion()
                     echo "App name: ${appName} \nApp version: ${appVersion}"
                 }
             }
