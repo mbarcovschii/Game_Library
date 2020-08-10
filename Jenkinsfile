@@ -25,7 +25,7 @@ pipeline {
             steps {
                 script {
                     def responseCode = sh returnStdout: true,
-                    script: "url --write-out '%{http_code}' --silent --output /dev/null http://localhost:8000/games"
+                    script: "curl --write-out '%{http_code}' --silent --output /dev/null http://localhost:8000/games"
                     echo responseCode;
                 }
             }
