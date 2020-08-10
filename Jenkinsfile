@@ -3,10 +3,12 @@ pipeline {
 
     stages {
         stage("Prepare environment variables") {
-            script {
-                env.appName = readMavenPom().getArtifactId()
-                env.appVersion = readMavenPom().getVersionId()
-                echo "App name: ${appName} \nApp version: ${appVersion}"
+            steps {
+                script {
+                    env.appName = readMavenPom().getArtifactId()
+                    env.appVersion = readMavenPom().getVersionId()
+                    echo "App name: ${appName} \nApp version: ${appVersion}"
+                }
             }
         }
         stage("Java Tests") {
