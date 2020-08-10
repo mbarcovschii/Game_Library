@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-            BASH = "D:\\programs\\Git\\bin"
-    }
-
     stages {
         stage("Java tests") {
             steps {
@@ -27,7 +23,7 @@ pipeline {
         }
         stage("Newman tests") {
             steps {
-                ${BASH} '''
+                sh '''
                     correct_code="200";
                     counter=0;
                     numberOfAttemps=5;
