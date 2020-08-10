@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.mbarcovschii</groupId>
-    <artifactId>game_library</artifactId>
+    <artifactId>game-library-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>game_library</name>
+    <name>game-library-api</name>
     <description>Game Library RESTful API</description>
 
     <properties>
