@@ -25,11 +25,12 @@ pipeline {
             steps {
                 echo "Start newman tests"
                 timeout(time: 20, unit: 'SECONDS') {
-                    waitUntil {
+                    waitUntil(quiet: true) {
                         script {
                             def result =
                                 sh script: "curl --write-out '%{http_code}' --silent --output /dev/null http://localhost:8000/games",
                                 returnStdout: true
+                                echo result
                             return (result == 0)
                         }
                     }
