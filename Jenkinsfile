@@ -5,7 +5,7 @@ pipeline {
         stage("Java tests") {
             steps {
                 echo "Start maven tests"
-                sh "mvn test"
+                bat "mvn test"
             }
         }
         stage("Build") {
@@ -23,7 +23,7 @@ pipeline {
         }
         stage("Newman tests") {
             steps {
-                bash '''
+                sh '''#!/bin/bash
                     correct_code="200";
                     counter=0;
                     numberOfAttemps=5;
