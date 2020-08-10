@@ -11,7 +11,7 @@ pipeline {
         stage("Build") {
             steps {
                 echo "Start build"
-                sh "mvn clean package -DskipTests"
+                sh "mvn -DskipTests -B clean package"
             }
         }
         stage("Deploy") {
@@ -35,13 +35,13 @@ pipeline {
                         if [ "$response_code" = "$correct_code" ]; then
                             echo "Running newman tests"
                             newman run ./newman/tests.json -e ./newman/environment.json --disable-unicode
-                            exit 0;
+                            exit 1;
                         elif [ "$counter" -lt "$numberOfAttemps" ]; then
                             echo "Will try to reconnect after $secondsToSleep seconds";
                             sleep $secondsToSleep;
                             ((counter++));
                         else
-                            exit 1;
+                            exit 0;
                         fi
                     done;
                 '''
