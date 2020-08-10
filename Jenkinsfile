@@ -33,7 +33,7 @@ pipeline {
                             script: "curl --write-out '%{http_code}' --silent --output /dev/null http://localhost:8000/games"
 
                             if (responseCode == 200) {
-                                newman run ./newman/tests.json -e ./newman/environment.json --disable-unicode
+                                sh "newman run ./newman/tests.json -e ./newman/environment.json --disable-unicode"
                                 sh "exit 0"
                             } else {
                                 echo "Retry to send request after 5 seconds"
