@@ -28,7 +28,7 @@ pipeline {
                     waitUntil {
                         script {
                             def result = sh script: 'curl http://localhost:8000/games', returnStdout: true
-                            return (result == 0)
+                            return (result == 1)
                         }
                     }
                 }
