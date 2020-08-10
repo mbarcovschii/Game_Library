@@ -30,7 +30,7 @@ pipeline {
                             def result =
                                 sh script: "curl --write-out '%{http_code}' --silent --output /dev/null http://localhost:8000/games",
                                 returnStdout: true
-                            return (result == 200)
+                            return (result == "200")
                         }
                     }
                 }
