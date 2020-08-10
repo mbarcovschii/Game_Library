@@ -27,8 +27,10 @@ pipeline {
                 timeout(time: 20, unit: 'SECONDS') {
                     waitUntil {
                         script {
-                            def result = sh script: 'curl http://localhost:8000/games', returnStdout: true
-                            return (result == 1)
+                            def result =
+                                sh script: "curl --write-out '%{http_code}' --silent --output /dev/null http://localhost:8000/games",
+                                returnStdout: true
+                            return (result == 0)
                         }
                     }
                 }
