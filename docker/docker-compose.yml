@@ -7,7 +7,7 @@ networks:
 
 services:
     backend:
-        build: ./backend
+        image: mbarcovschii/game-library-api
         depends_on:
           - database
         container_name: game-library-api
