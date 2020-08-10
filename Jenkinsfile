@@ -26,6 +26,17 @@ pipeline {
         stage("Build docker images") {
             steps {
                 echo "Build docker image and pushing it on DockerHub"
+                 withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: "DOCKER_LOGIN",
+                    passwordVariable: "DOCKER_PASSWORD")]) {
+                        sh """
+                            docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
+                            docker build \
+                            -t ${DOCKER_LOGIN}/${appName}:${appVersion} \
+                            -t ${DOCKER_LOGIN}/${appName}:latest ./docker/backend
+                            docker push ${DOCKER_LOGIN}/${appName}:${appVersion}
+                            docker push ${DOCKER_LOGIN}/${appName}:latest
+                        """
+                    }
             }
         }
         stage("Deploy") {
