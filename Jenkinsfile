@@ -24,7 +24,7 @@ pipeline {
         stage("Newman tests") {
             steps {
                 echo "Start newman tests"
-                timeout(20, "SECONDS") {
+                timeout(time: 20, unit: 'SECONDS') {
                     waitUntil {
                         script {
                             def result = sh script: 'curl -X http://localhost:8000/games', returnStdout: true
