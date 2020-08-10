@@ -2,28 +2,39 @@ pipeline {
     agent any
 
     stages {
-        stage("Java tests") {
-            steps {
-                echo "Start maven tests"
-                bat "mvn test"
+        stage("Prepare environment variables") {
+            script {
+                env.appName = readMavenPom().getArtifactId()
+                env.appVersion = readMavenPom().getVersionId()
+                echo "App name: ${appName} \nApp version: ${appVersion}"
             }
         }
-        stage("Build") {
+        stage("Java Tests") {
             steps {
-                echo "Start build"
+                echo "Java Tests"
+                sh "mvn test"
+            }
+        }
+        stage("Build Java Artifact") {
+            steps {
+                echo "Building Java Artifact"
                 sh "mvn -DskipTests -B clean package"
+            }
+        }
+        stage("Build docker images") {
+            steps {
+                echo "Build docker image and pushing it on DockerHub"
             }
         }
         stage("Deploy") {
             steps {
-                echo "Start deploy"
-                sh "docker build -t game-library-api:latest ./docker/backend"
+                echo "Deploy"
                 sh "docker-compose --file ./docker/docker-compose.yml up --detach"
             }
         }
-        stage("Newman tests") {
+        stage("Newman Tests") {
             steps {
-                echo "Start newman tests"
+                echo "Start Newman Tests"
                 timeout(time: 20, unit: 'SECONDS') {
                     waitUntil {
                         script {
