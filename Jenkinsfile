@@ -5,25 +5,25 @@ pipeline {
         stage("Java tests") {
             steps {
                 echo "Start maven tests"
-                bat "mvn test"
+                sh "mvn test"
             }
         }
         stage("Build") {
             steps {
                 echo "Start build"
-                bat "mvn clean package -DskipTests"
+                sh "mvn clean package -DskipTests"
             }
         }
         stage("Deploy") {
             steps {
                 echo "Start deploy"
-                bat "docker build -t game-library-api:latest ./docker/backend"
-                bat "docker-compose --file ./docker/docker-compose.yml up --detach"
+                sh "docker build -t game-library-api:latest ./docker/backend"
+                sh "docker-compose --file ./docker/docker-compose.yml up --detach"
             }
         }
         stage("Newman tests") {
             steps {
-                sh '''
+                bash '''
                     correct_code="200";
                     counter=0;
                     numberOfAttemps=5;
