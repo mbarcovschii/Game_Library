@@ -13,7 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @ControllerAdvice
-public class GenreExceptionHandler extends ResponseEntityExceptionHandler {
+public class GenreExceptionHandler {
 
     @ExceptionHandler(GenreNotFoundException.class)
     public ResponseEntity<?> handleGenreNotFoundException(

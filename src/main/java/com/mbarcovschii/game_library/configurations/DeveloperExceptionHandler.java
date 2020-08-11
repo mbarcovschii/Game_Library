@@ -13,7 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @ControllerAdvice
-public class DeveloperExceptionHandler extends ResponseEntityExceptionHandler {
+public class DeveloperExceptionHandler {
 
     @ExceptionHandler(DeveloperNotFoundException.class)
     public ResponseEntity<?> handleDeveloperNotFoundException(

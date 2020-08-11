@@ -12,7 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @ControllerAdvice
-public class GameExceptionHandler extends ResponseEntityExceptionHandler {
+public class GameExceptionHandler {
 
 //    @ResponseBody
 //    @ExceptionHandler(GameNotFoundException.class)

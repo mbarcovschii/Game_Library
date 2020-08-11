@@ -8,7 +8,6 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
@@ -17,7 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @ControllerAdvice
-public class CommonExceptionHandler extends ResponseEntityExceptionHandler {
+public class CommonExceptionHandler {
 
     @ExceptionHandler(PartialUpdateIsEmptyException.class)
     public ResponseEntity<?> handlePartialUpdateIsEmptyException(
