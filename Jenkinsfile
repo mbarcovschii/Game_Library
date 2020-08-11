@@ -43,11 +43,6 @@ pipeline {
             steps {
                 echo "Deploy"
                 sh "docker-compose --file ./docker/docker-compose.yml up --detach"
-            }
-        }
-        stage("Newman Tests") {
-            steps {
-                echo "Start Newman Tests"
                 timeout(time: 60, unit: 'SECONDS') {
                     waitUntil(initialRecurrencePeriod: 2000) {
                         script {
@@ -58,6 +53,12 @@ pipeline {
                         }
                     }
                 }
+                echo "Server is up"
+            }
+        }
+        stage("Newman Tests") {
+            steps {
+                echo "Start Newman Tests"
                 sh "newman run ./newman/tests.json -e ./newman/environment.json --disable-unicode"
             }
         }
