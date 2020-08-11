@@ -5,9 +5,7 @@ import com.mbarcovschii.game_library.model.Developer;
 import com.mbarcovschii.game_library.model.Game;
 import com.mbarcovschii.game_library.model.Genre;
 import com.mbarcovschii.game_library.repositories.GameRepository;
-import com.mbarcovschii.game_library.services.DeveloperService;
 import com.mbarcovschii.game_library.services.GameService;
-import com.mbarcovschii.game_library.services.GenreService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,12 +26,6 @@ public class GameServiceTest {
 
     @Mock
     GameRepository gameRepository;
-
-    @Mock
-    DeveloperService developerService;
-
-    @Mock
-    GenreService genreService;
 
     @InjectMocks
     GameService gameService;

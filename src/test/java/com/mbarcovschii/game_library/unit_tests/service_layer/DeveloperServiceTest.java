@@ -5,7 +5,6 @@ import com.mbarcovschii.game_library.model.Developer;
 import com.mbarcovschii.game_library.model.Game;
 import com.mbarcovschii.game_library.repositories.DeveloperRepository;
 import com.mbarcovschii.game_library.services.DeveloperService;
-import com.mbarcovschii.game_library.services.GameService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,9 +25,6 @@ public class DeveloperServiceTest {
 
     @Mock
     private DeveloperRepository developerRepository;
-
-    @Mock
-    private GameService gameService;
 
     @InjectMocks
     private DeveloperService developerService;

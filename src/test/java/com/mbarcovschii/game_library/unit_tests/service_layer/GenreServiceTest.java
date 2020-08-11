@@ -30,9 +30,6 @@ public class GenreServiceTest {
     @Mock
     private GenreRepository genreRepository;
 
-    @Mock
-    private GameService gameService;
-
     @InjectMocks
     private GenreService genreService;
 
