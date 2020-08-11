@@ -2,7 +2,7 @@
 FROM openjdk:8-jre-alpine
 
 # Copy war file
-COPY game_library-0.0.1-SNAPSHOT.jar /game_library.war
+COPY game-library-api-*.jar /game-library-api.war
 
 # run the app
-CMD ["usr/bin/java", "-jar", "/game_library.war"]
+CMD ["usr/bin/java", "-jar", "/game-library-api.war"]
