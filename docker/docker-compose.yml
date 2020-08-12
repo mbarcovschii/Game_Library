@@ -16,7 +16,7 @@ services:
         networks:
           - default
     database:
-        image: mysql:latest
+        image: mysql
         container_name: mysql-database
         environment:
           MYSQL_ROOT_PASSWORD: root123
