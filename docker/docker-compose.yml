@@ -23,7 +23,5 @@ services:
           MYSQL_DATABASE: game_library
           MYSQL_USER: rootUser
           MYSQL_PASSWORD: root
-        ports:
-          - "2012:3306"
         networks:
           - default
